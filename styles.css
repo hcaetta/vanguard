@@ -1,13 +1,6 @@
 /* CSS BY YOUR NAME */
 
-/* IMPORTED FONTS*/
-/* IMPORT "INTER" FROM GOOGLE FONTS"
-
-/* CSS RESET */
-/* http://meyerweb.com/eric/tools/css/reset/
-v2.0 | 20110126
-License: none (public domain)
-*/
+/* RESET — MEYER RESET v2.0 */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -18,41 +11,22 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup, 
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
+    margin: 0; padding: 0; border: 0;
+    font-size: 100%; font: inherit;
     vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; font-family: var(--font); background-color: var(--white); }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote::before, blockquote::after, q::before, q::after { content: ""; }
+table { border-collapse: collapse; }
 
-/* ROOT VARIABLES */
+/* VARIABLES */
 :root {
     --blue: #007BFF;
     --red: #FF4500;
@@ -63,38 +37,241 @@ table {
 }
 
 /* GLOBAL STYLES (MOBILE FIRST (SMALL) */
-
-/* MIN-WIDTH OF THE PAGE SHOULD NOT GO BELOW 400PX */
-
-/* ADD A DIV WITH THE CLASS OF CONTAINER TO EVERY CONTENT CONTAINER THIS IS ALLOW THE BASE ELEMENTS TO BE 100% WIDTH, BUT CONSTRAIN THE ACTUAL CONTENT TO 90% */
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* ADD TO "INNOVATION & INVESTMENT SECTION (Photo by Kevin Matos on Unsplash) */
- {
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/vanguard-hero.jpg') no-repeat center center/cover;
-    height: 80vh;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 1rem;
-    overflow: hidden;
+
+header {
+    background-color: var(--black);
+    padding: 2em;
+    border-bottom: 6px solid var(--blue);
+    display: flex;
+    gap: 10rem;
 }
 
-/* ADD FLOATING SVG LOGO BEFORE THE H1 */
- {
-    content: "";
+header h1 {
+    position: relative;
+    color: var(--blue);
+    font-size: 3em;
+    font-weight: bold;
+    padding-left: 3rem;
+}
 
-    left:-.5rem;
-    width: 3.75rem;
-    height: 3.75rem;
+h1::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4rem;
+    height: 4rem;
     background: url('images/vanguard-logo.svg') no-repeat center/contain;
 
 }
-/* THIS ONE IS DONE FOR YOU */
+
+  nav ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+    overflow:hidden;
+    text-align:center;
+    max-height: 0;
+  }
+  nav h2 {
+    visibility:hidden;
+  }
+  nav li a {
+    display:block;
+    font-family:sans-serif;
+    font-size:1.5rem;
+    padding:1rem;
+    text-transform:uppercase;
+    font-weight:bold;
+    text-decoration:none;
+    color: var(--blue);
+    transition: background-color .3s ease-in;
+  }
+
+  nav li a:hover {
+    background-color: var(--blue);
+    color: var(--black)
+}
+
+  /* BUILDS THE MIDDLE LILNE OF THE HAMBURGER */
+  label span {
+      background-color: white;
+      display: block;
+      height: .25rem;
+      position: relative;
+      transition: background-color .3s ease-out;
+      width: 2rem;
+  }
+  /* BUILDS THE TOP AND BOTTOM LINES OF THE HAMBURGER*/
+  label span:before, label span:after {
+      background: white;
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      transition: all .2s ease-out;
+      width: 100%;
+  }
+  label span:before {
+      top: .75rem;
+  }
+  label span:after {
+      top: -.75rem;
+  }
+  input {
+    display:none;
+  }
+  /* ADDS HEIGHT THE NAV WHEN IT'S DROPPED DOWN */
+  input:checked ~ ul {
+      max-height: 500px;
+      padding-top: 4.5rem;
+  }
+  /* MAKES THE MIDDLE LINE OF THE HAMBURGER DISAPPEAR */
+  input:checked ~ label span {
+      background: transparent;
+  }
+  /* ROTATES THE TOP LINE OF THE HAMBURGER INTO ONE SIDE OF THE X */
+  input:checked ~ label span:before {
+      transform: rotate(-45deg);
+  }
+  /* ROTATES THE BOTTOM LINE OF THE HAMBURGER INTO ONE SIDE OF THE X */
+  input:checked ~ label span:after {
+      transform: rotate(45deg);
+  }
+  /* LOCATION OF THE HAMBURGER */
+  input:checked ~ label:not(.steps) span:before, input:checked ~ label:not(.steps) span:after {
+      top: 0;
+  }
+  nav label {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    z-index: 9999;
+    cursor: pointer;
+    padding: 2rem;
+  }
+
+  
+  @media screen and (min-width: 600px){
+    nav ul {
+      overflow: visible;
+      display: grid;
+      grid-template-columns:1fr 1fr 1fr;
+      align-content:end
+    }
+    label span, input {
+      display:none;
+    }
+  }
+
+#innovation {
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/vanguard-hero.jpg') no-repeat center center/cover;
+    height: 80vh;
+    display: grid;
+    text-align: center;
+    place-items: center;
+    padding: 1rem;
+    overflow: hidden;
+    grid-template-rows: repeat(9, 1fr);
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    grid-row: 4/6;
+    gap: 2.5rem
+
+}
+
+#innovation h2 {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 2rem;
+}
+#innovation p {
+    color: var(--white);
+}
+
+#innovation a {
+    background-color: var(--blue);
+    padding: 1em;
+    border-radius: 5px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#innovation a:hover {
+    background-color: var(--red);
+}
+
+
+.container h2 {
+    font-size: 2em;
+    font-weight: 0.5;
+    padding: 1em 1em 0em 1em;
+    margin: 1rem;
+}
+
+.container p {
+    margin-top: 1em;
+}
+
+#blue-boxes .container {
+    background-color: var(--blue);
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border-radius: 5px;
+    color: var(--white);
+}
+
+#blue-boxes .container h3 {
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#results {
+    background-color: var(--blue);
+    color: var(--white);
+    padding-bottom: 2rem;
+    width: 100%;
+}
+
+
+#results h3 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-left: 2em;
+}
+
+#results h2 {
+    font-weight: bold;
+}
+
+#results p {
+    margin: 1.5em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #bar-chart {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -107,6 +284,7 @@ table {
     padding: 1rem;
     position: relative;
 }
+
 /* ADD ON TRANSITION ON HEIGHT */
 .bar {
     width: 50px;
@@ -116,7 +294,7 @@ table {
     transition: ;
     height: 0;
 }
-/* THIS ONE IS DONE FOR YOU */
+
 .bar::after {
     content: attr(data-year);
     position: absolute;
@@ -140,22 +318,20 @@ table {
     animation: stepUp 1s ease-in-out forwards;
 }
 
-
 /* MEDIA QUERIES (MEDIUM) */ 
 
-    #results {
-        grid-template-columns: 1fr 1fr;
-    }
-    .results-container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .results-table {
-        width: 50%;
-    }
-    .bar-chart {
-        width: 50%;
-    }
-
+#results {
+    grid-template-columns: 1fr 1fr;
+}
+.results-container {
+    flex-direction: row;
+    justify-content: space-between;
+}
+.results-table {
+    width: 50%;
+}
+.bar-chart {
+    width: 50%;
+}
 
 /* MEDIA QUERIES (LARGE) */
