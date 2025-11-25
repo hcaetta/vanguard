@@ -1,2 +1,19 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+label[for="full-name"]       { grid-area: name; }
+  #full-name                   { grid-area: nameInput; }
+
+  label[for="email-address"]   { grid-area: email; }
+  #email-address               { grid-area: emailInput; }
+
+  label[for="company-name"]    { grid-area: company; }
+  #company-name                { grid-area: companyInput; }
+
+  label[for="industry"]        { grid-area: industry; }
+  #industry                    { grid-area: industryInput; }
+
+  label[for="how-to-help"]     { grid-area: help; }
+  #how-to-help                 { grid-area: helpInput; }
+
+  #submit                      { grid-area: submit; }
+}

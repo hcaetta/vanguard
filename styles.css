@@ -44,18 +44,30 @@ table { border-collapse: collapse; }
 }
 
 
+/* HEADER + LOGO */
 header {
+    position: relative;
     background-color: var(--black);
-    padding: 2em;
-    border-bottom: 6px solid var(--blue);
+    padding: 2.5rem 2rem;
     display: flex;
-    gap: 10rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: linear-gradient(to bottom, var(--blue), transparent);
 }
 
 header h1 {
     position: relative;
     color: var(--blue);
-    font-size: 3em;
+    font-size: 2.5rem;
     font-weight: bold;
     padding-left: 3rem;
 }
@@ -69,107 +81,142 @@ h1::before {
     width: 4rem;
     height: 4rem;
     background: url('images/vanguard-logo.svg') no-repeat center/contain;
-
 }
 
-  nav ul {
-    margin:0;
-    padding:0;
-    list-style:none;
-    overflow:hidden;
-    text-align:center;
-    max-height: 0;
-  }
-  nav h2 {
-    visibility:hidden;
-  }
-  nav li a {
-    display:block;
-    font-family:sans-serif;
-    font-size:1.5rem;
-    padding:1rem;
-    text-transform:uppercase;
-    font-weight:bold;
-    text-decoration:none;
-    color: var(--blue);
-    transition: background-color .3s ease-in;
-  }
-
-  nav li a:hover {
-    background-color: var(--blue);
-    color: var(--black)
+/* NAV BASE */
+nav {
+    position: relative;
 }
 
-  /* BUILDS THE MIDDLE LILNE OF THE HAMBURGER */
-  label span {
-      background-color: white;
-      display: block;
-      height: .25rem;
-      position: relative;
-      transition: background-color .3s ease-out;
-      width: 2rem;
-  }
-  /* BUILDS THE TOP AND BOTTOM LINES OF THE HAMBURGER*/
-  label span:before, label span:after {
-      background: white;
-      content: '';
-      display: block;
-      height: 100%;
-      position: absolute;
-      transition: all .2s ease-out;
-      width: 100%;
-  }
-  label span:before {
-      top: .75rem;
-  }
-  label span:after {
-      top: -.75rem;
-  }
-  input {
-    display:none;
-  }
-  /* ADDS HEIGHT THE NAV WHEN IT'S DROPPED DOWN */
-  input:checked ~ ul {
-      max-height: 500px;
-      padding-top: 4.5rem;
-  }
-  /* MAKES THE MIDDLE LINE OF THE HAMBURGER DISAPPEAR */
-  input:checked ~ label span {
-      background: transparent;
-  }
-  /* ROTATES THE TOP LINE OF THE HAMBURGER INTO ONE SIDE OF THE X */
-  input:checked ~ label span:before {
-      transform: rotate(-45deg);
-  }
-  /* ROTATES THE BOTTOM LINE OF THE HAMBURGER INTO ONE SIDE OF THE X */
-  input:checked ~ label span:after {
-      transform: rotate(45deg);
-  }
-  /* LOCATION OF THE HAMBURGER */
-  input:checked ~ label:not(.steps) span:before, input:checked ~ label:not(.steps) span:after {
-      top: 0;
-  }
-  nav label {
+/* hide nav heading visually but keep for screen readers */
+nav h2 {
     position: absolute;
-    top: 1.5rem;
-    right: 2rem;
-    z-index: 9999;
-    cursor: pointer;
-    padding: 2rem;
-  }
+    left: -9999px;
+}
 
-  
-  @media screen and (min-width: 600px){
+/* MOBILE NAV (default) */
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    text-align: left;
+    position: relative;
+    top: 100%;
+    right: 0;
+    background: var(--black);
+    width: 200px;
+    transition: max-height 0.3s ease;
+    z-index: 1000;
+}
+
+nav li a {
+    display: block;
+    font-size: 1.2rem;
+    padding: 1rem 1.25rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--blue);
+    transition: background-color 0.3s ease-in, color 0.3s ease-in;
+}
+
+nav li a:hover {
+    background-color: var(--blue);
+    color: var(--black);
+}
+
+/* HAMBURGER ICON */
+nav input {
+    display: none;
+}
+
+/* location of the hamburger (top-right of nav) */
+nav label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    padding: 0 15rem;
+}
+
+/* middle line */
+nav label span {
+    background-color: white;
+    display: block;
+    height: 0.25rem;
+    width: 2rem;
+    position: relative;
+    transition: background-color 0.3s ease-out;
+}
+
+/* top & bottom lines */
+nav label span::before,
+nav label span::after {
+    background: white;
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+}
+
+nav label span::before {
+    top: -0.6rem;
+}
+
+nav label span::after {
+    top: 0.6rem;
+}
+
+/* when menu is open */
+nav input:checked ~ ul {
+    max-height: 300px;
+}
+
+nav input:checked + label span {
+    background: transparent;
+}
+nav input:checked + label span::before {
+    transform: rotate(-45deg);
+    top: 0;
+}
+nav input:checked + label span::after {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+@media screen and (min-width: 600px) {
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    nav label {
+        display: none; 
+
+    }
+
     nav ul {
-      overflow: visible;
-      display: grid;
-      grid-template-columns:1fr 1fr 1fr;
-      align-content:end
+        position: static;
+        display: flex;
+        max-height: none;
+        background: transparent;
+        width: auto;
     }
-    label span, input {
-      display:none;
+
+    nav li a {
+        padding: 0.5rem 1rem;
     }
-  }
+}
+
+main {
+    width: 100%;
+    margin: 0 auto;
+}
 
 #innovation {
     background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/vanguard-hero.jpg') no-repeat center center/cover;
@@ -181,6 +228,23 @@ h1::before {
     overflow: hidden;
     grid-template-rows: repeat(9, 1fr);
 }
+
+.hero > * {
+    opacity: 0%;
+    animation: fadeInSlow 1.5s ease-in forwards;
+}
+
+@keyframes fadeInSlow {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .hero {
     display: flex;
@@ -200,76 +264,118 @@ h1::before {
 }
 
 #innovation a {
+    display: inline-block;
     background-color: var(--blue);
     padding: 1em;
     border-radius: 5px;
     color: var(--white);
     text-decoration: none;
     font-weight: bold;
+    transition: all 0.4s ease;
+    transform: scale(1);
 }
 
 #innovation a:hover {
     background-color: var(--red);
+    transform: scale(1.2);
 }
 
-
 .container h2 {
-    font-size: 2em;
-    font-weight: 0.5;
-    padding: 1em 1em 0em 1em;
+    font-size: 1.75rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem 0 1.5rem;    
     margin: 1rem;
 }
 
 .container p {
-    margin-top: 1em;
+    margin: 1rem 1.5rem 0 1.5rem;
+    line-height: 1.5;
+}
+
+#blue-boxes p{
+    margin: 0;
+}
+
+#blue-boxes {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 #blue-boxes .container {
     background-color: var(--blue);
-    margin: 1.5rem 0;
-    padding: 1.5rem;
+    padding: 2rem;
+    margin: 0;
     border-radius: 5px;
     color: var(--white);
+    transition: transform 0.3s ease;
+    
 }
+
+#blue-boxes .container:hover {
+    transform: translateY(-10px);
+}
+
 
 #blue-boxes .container h3 {
     font-weight: bold;
     margin-left: 1rem;
+    margin-bottom: 1rem;
 }
 
-#results {
+#blue-boxes .container p {
+    margin-top: 0.5rem;   
+    line-height: 1.6;
+}
+#proven-results {
     background-color: var(--blue);
     color: var(--white);
     padding-bottom: 2rem;
     width: 100%;
 }
 
+#proven-results p{
+    padding: 0 1.5rem;
+    margin: 2rem;
+    text-align: left;
+}
 
-#results h3 {
+#proven-results h2 {
+    padding: 1rem 2.5rem 0 2.5rem;
+    margin: 2rem;    
+    font-weight: bold;
+}
+
+#proven-results h3 {
     font-weight: bold;
     font-size: 1.5rem;
     padding-left: 2em;
-}
-
-#results h2 {
-    font-weight: bold;
-}
-
-#results p {
-    margin: 1.5em;
+    margin: 1rem;
 }
 
 
+th {
+    border-bottom: 1px solid var(--charcoal);
+    background-color: var(--black);
+}
+th, td {
+    padding: 15px;
+    border-left: 1px solid var(--charcoal);
+}
 
+table {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
 
+tr:nth-child(odd) {
+    background-color: var(--charcoal);
+}
 
-
-
-
-
-
-
-
+tr:nth-child(even) {
+    background-color: var(--black);
+}
 
 
 #bar-chart {
@@ -279,19 +385,19 @@ h1::before {
     justify-content: space-around;
     gap: 1rem;
     height: 300px;
-    width: 100%;
+    width: 75%;
     max-width: 800px;
     padding: 1rem;
     position: relative;
+    margin: 0 auto;
 }
 
-/* ADD ON TRANSITION ON HEIGHT */
 .bar {
     width: 50px;
     background: var(--charcoal);
     border-radius: 10px;
     position: relative;
-    transition: ;
+    transition: height 0.5s ease;
     height: 0;
 }
 
@@ -313,25 +419,149 @@ h1::before {
         height: var(--height);
     }
 }
-/* ADD ANIMATION ON stepUp for 1s ease-in-out forwards */
+
+
 .bar {
     animation: stepUp 1s ease-in-out forwards;
 }
 
-/* MEDIA QUERIES (MEDIUM) */ 
-
-#results {
-    grid-template-columns: 1fr 1fr;
-}
-.results-container {
-    flex-direction: row;
-    justify-content: space-between;
-}
-.results-table {
-    width: 50%;
-}
-.bar-chart {
-    width: 50%;
+form{
+    background-color: var(--black);
+    padding: 3rem;
 }
 
-/* MEDIA QUERIES (LARGE) */
+input[type=text] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid var(--blue);
+}
+
+textarea {
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 20px;
+    width:100%;
+    border: 2px solid var(--blue);
+}
+
+input[type=submit] {
+    background-color: var(--blue);
+    padding: 15px;
+    border: none;
+    text-decoration: none;
+    width: 100%;
+    border-radius: 5px;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    transform: scale(1);
+    margin: 1rem auto;
+}
+
+input[type=submit]:hover {
+background-color: var(--red);
+transform: scale(1.1);
+}
+
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding-top: 2rem;
+    margin-top: 0;
+}
+
+footer p {
+    text-align: center;
+}
+
+#form p{
+    padding: 0 1.5rem;
+    text-align: left;
+}
+
+#form h2 {
+    padding: 0 2.5rem;
+}
+
+
+  /* MEDIA QUERIES (MEDIUM) */
+  @media screen and (min-width: 800px) {
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .results-table table {
+        height: 90%; /* fill parent height */
+
+    }  
+    #blue-boxes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+        margin: 0 auto;
+        gap: 1rem 3rem;
+    }
+    
+  }
+
+  /* MEDIA QUERIES (LARGE) */
+
+@media screen and (min-width: 1024px) {
+    .results-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .results-table table {
+          height: 90%;
+  
+      }  
+      #blue-boxes {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          padding: 1rem;
+          margin: 0 auto;
+          gap: 1rem 3rem;
+      }
+      
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem 2rem;
+            align-items: start;
+        }
+            label[for="full-name"],
+        #full-name {
+            grid-column: 1;
+        }
+    
+        label[for="email-address"],
+        #email-address {
+            grid-column: 2;
+        }
+    
+        label[for="company-name"],
+        #company-name {
+            grid-column: 1;
+        }
+    
+        label[for="industry"],
+        #industry {
+            grid-column: 2;
+        }
+            label[for="how-to-help"],
+        #how-to-help {
+            grid-column: 1 / 4;
+        }
+            #submit {
+            grid-column: 1 / 4;
+        }
+    }
+    
+h2, h3 {
+    animation: fadeInSlow 1s ease forwards;
+}
