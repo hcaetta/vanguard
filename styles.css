@@ -1,4 +1,7 @@
-/* CSS BY YOUR NAME */
+/* CSS BY Hailie Caetta */
+/* IMPORTED FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 
 /* RESET — MEYER RESET v2.0 */
 html, body, div, span, applet, object, iframe,
@@ -26,7 +29,7 @@ blockquote, q { quotes: none; }
 blockquote::before, blockquote::after, q::before, q::after { content: ""; }
 table { border-collapse: collapse; }
 
-/* VARIABLES */
+/* ROOT VARIABLES */
 :root {
     --blue: #007BFF;
     --red: #FF4500;
@@ -37,6 +40,7 @@ table { border-collapse: collapse; }
 }
 
 /* GLOBAL STYLES (MOBILE FIRST (SMALL) */
+
 .container {
     width: 90%;
     max-width: 1200px;
@@ -171,7 +175,6 @@ nav label span::after {
     top: 0.6rem;
 }
 
-/* when menu is open */
 nav input:checked ~ ul {
     max-height: 300px;
 }
